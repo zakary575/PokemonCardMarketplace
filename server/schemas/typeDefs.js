@@ -2,7 +2,7 @@ const typeDefs = `
   type Order {
     _id: ID
     purchaseDate: String
-    cards: [??? pokemon api ???]
+    cards: [String]!
   }
 
   type User {
@@ -21,11 +21,15 @@ const typeDefs = `
   }
 
   type Query {
-
+    user: User
+    order(_id: ID!): Order
   }
 
   type Mutation {
-
+    addUser(email: String!, password: String!): Auth
+    addOrder(products: [ID]!): Order
+    updateUser(email: String, password: String): User
+    login(email: String!, password: String!): Auth
   }
 `;
 
