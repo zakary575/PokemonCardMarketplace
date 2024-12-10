@@ -1,7 +1,7 @@
 const { Order, User } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc'); // Your secret Stripe key
+const stripe = require('stripe')('sk_test_51QUIFx008X5NkGfJiejDvZSeurXnjALpkIfVTs5FQdve10Fob6FQkLz4Viut8GQUxdZsZJhtfAt9hcXKDdmPtZzx00GbuM0VbI'); // Your secret Stripe key
 
 const resolvers = {
     Query: {
