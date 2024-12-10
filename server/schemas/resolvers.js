@@ -1,22 +1,27 @@
 const { Order, User } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
+
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc'); // Your secret Stripe key
 
 const resolvers = {
     Query: {
         user: async (parent, args, context) => {
             if (context.user) {
+
                 const user = await User.findById(context.user._id);
+                                                 
                 return user;
             }
             throw AuthenticationError;
         },
         order: async (parent, { _id }, context) => {
             if (context.user) {
+         
                 const user = await User.findById(context.user._id);
                 return user.orders.id(_id);
             }
             throw AuthenticationError;
+                
         },
     },
     Mutation: {
@@ -25,6 +30,7 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
+
 
         addOrder: async (parent, { products, paymentIntentId }, context) => {
             if (context.user) {
@@ -40,9 +46,6 @@ const resolvers = {
                     order.paymentStatus = 'Paid';
                     await order.save();
                 }
-
-                return order;
-            }
             throw AuthenticationError;
         },
 
@@ -76,6 +79,7 @@ const resolvers = {
             throw AuthenticationError;
         },
 
+
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
             if (!user) {
@@ -92,3 +96,5 @@ const resolvers = {
 }
 
 module.exports = resolvers;
+
+
