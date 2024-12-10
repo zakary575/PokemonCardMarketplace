@@ -9,19 +9,19 @@ const resolvers = {
             if (context.user) {
 
                 const user = await User.findById(context.user._id);
-                                                 
+
                 return user;
             }
             throw AuthenticationError;
         },
         order: async (parent, { _id }, context) => {
             if (context.user) {
-         
+
                 const user = await User.findById(context.user._id);
                 return user.orders.id(_id);
             }
             throw AuthenticationError;
-                
+
         },
     },
     Mutation: {
@@ -46,7 +46,8 @@ const resolvers = {
                     order.paymentStatus = 'Paid';
                     await order.save();
                 }
-            throw AuthenticationError;
+                throw AuthenticationError;
+            }
         },
 
         // Mutation to create a payment intent
