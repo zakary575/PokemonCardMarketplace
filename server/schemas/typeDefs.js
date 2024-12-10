@@ -30,7 +30,7 @@ const typeDefs = `
     addOrder(products: [ID]!): Order
     updateUser(email: String, password: String): User
     login(email: String!, password: String!): Auth
-    createPaymentIntent(amount: Number): Order
+    createPaymentIntent(amount: Float): Order
   }
 `;
 
