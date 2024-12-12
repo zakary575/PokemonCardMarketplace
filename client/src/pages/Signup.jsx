@@ -4,9 +4,17 @@ import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
 
-function Signup(props) {
+function Signup() {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [addUser] = useMutation(ADD_USER);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -20,37 +28,29 @@ function Signup(props) {
     Auth.login(token);
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
-  };
-
   return (
     <div className="container my-1">
       <Link to="/login">← Go to Login</Link>
 
       <h2>Signup</h2>
       <form onSubmit={handleFormSubmit}>
-        <div className="flex-row space-between my-2">
+        <div className="">
           <label htmlFor="email">Email:</label>
           <input
-            placeholder="youremail@test.com"
+            placeholder="example@email.com"
             name="email"
             type="email"
             id="email"
             onChange={handleChange}
           />
         </div>
-        <div className="flex-row space-between my-2">
-          <label htmlFor="pwd">Password:</label>
+        <div className="">
+          <label htmlFor="password">Password:</label>
           <input
             placeholder="******"
             name="password"
             type="password"
-            id="pwd"
+            id="password"
             onChange={handleChange}
           />
         </div>
