@@ -12,7 +12,7 @@ const resolvers = {
 
                 return user;
             }
-            throw AuthenticationError;
+            throw AuthenticationError('You must be logged in');
         },
         order: async (parent, { _id }, context) => {
             if (context.user) {
@@ -20,7 +20,7 @@ const resolvers = {
                 const user = await User.findById(context.user._id);
                 return user.orders.id(_id);
             }
-            throw AuthenticationError;
+            throw AuthenticationError('You must be logged in');
 
         },
     },
@@ -45,9 +45,11 @@ const resolvers = {
                 if (paymentIntent.status === 'succeeded') {
                     order.paymentStatus = 'Paid';
                     await order.save();
-                }
-                throw AuthenticationError;
+                } else { throw new Error('Payment not successful'); }
+                 
+                return order;
             }
+            throw new AuthenticationError('You must be logged in');
         },
 
         // Mutation to create a payment intent
@@ -73,28 +75,27 @@ const resolvers = {
             }
         },
 
-        updateUser: async (parent, args, context) => {
-            if (context.user) {
-                return await User.findByIdAndUpdate(context.user._id, args, { new: true });
-            }
-            throw AuthenticationError;
-        },
-
-
-        login: async (parent, { email, password }) => {
-            const user = await User.findOne({ email });
+        updateUser: async (parent, args, context) => { 
+            if (context.user) { 
+                return await User.findByIdAndUpdate(context.user._id, args, { new: true }); 
+            } 
+            throw new AuthenticationError('You must be logged in');
+         }, 
+         
+         login: async (parent, { email, password }) => { 
+            const user = await User.findOne({ email }); 
             if (!user) {
-                throw AuthenticationError;
-            }
-            const correctPw = await user.isCorrectPassword(password);
-            if (!correctPw) {
-                throw AuthenticationError;
-            }
-            const token = signToken(user);
-            return { token, user };
-        }
-    }
-}
+                 throw new AuthenticationError('Invalid email or password');
+                 } 
+                 const correctPw = await user.isCorrectPassword(password); 
+                 if (!correctPw) {
+                     throw new AuthenticationError('Invalid email or password');
+                 } 
+                 const token = signToken(user); 
+                 return { token, user };
+                }, 
+            },
+        };
 
 module.exports = resolvers;
 
