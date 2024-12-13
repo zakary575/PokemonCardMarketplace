@@ -11,7 +11,7 @@ function SearchBar() {
 
     function queryAPI(query){
         const apiUrl =  'https://api.pokemontcg.io/v2/cards/?'
-        const url = apiUrl + "&q=name:" + encodeURIComponent(query)
+        const url = apiUrl + "&q=name:" + encodeURIComponent(query) + "&pageSize=10"
     
         fetch(url)
       .then(response => {
@@ -23,7 +23,7 @@ function SearchBar() {
       .then(results => {
         // Process the retrieved user data
         console.log('Results:', results)
-        setResults(results);
+        setResults(results.data);
       })
       .catch(error => {
         console.error('Error:', error);
@@ -44,6 +44,15 @@ function SearchBar() {
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
             </form>
+            <ul>
+                {results.map(card=>
+                <li>
+                    <p>${card.cardmarket.prices.averageSellPrice}</p>
+                    <img src={card.images.small}></img><br/>
+                    <btn>Add to Cart</btn>
+                </li>)}
+            </ul>
+
         </div>
     )
 }
