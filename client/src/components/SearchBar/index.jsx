@@ -1,27 +1,41 @@
 import { useState, useEffect } from 'react';
-// import { fetchData } from '../utils/fetchData';
 
 function SearchBar() {
     const [searchTerm, setSearchTerm] = useState('')
     const [results, setResults] = useState([])
+    
+    function handleSubmit(event){
+        event.preventDefault()
+        queryAPI(searchTerm)
+    }
 
-    const fetchData = async (query) => {
-        if (!query) return;
-        try {
-            const response = await fetch(`https://api.example.com/search?query=${query}`);
-            const data = await response.json();
-            setResults(data.results);
-        } catch (error) {
-            console.error('Error fetching data:', error);
+    function queryAPI(query){
+        const apiUrl =  'https://api.pokemontcg.io/v2/cards/?'
+        const url = apiUrl + "&q=name:" + encodeURIComponent(query)
+    
+        fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
         }
-    };
+        return response.json();
+      })
+      .then(results => {
+        // Process the retrieved user data
+        console.log('Results:', results)
+        setResults(results);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
 
-    useEffect(() => {
-        fetchData(searchTerm);
-    }, [searchTerm]);
+
 
     return (
         <div>
+            <form 
+            onSubmit={handleSubmit}>
             <span>🔎</span>
             <input
                 type="text"
@@ -29,11 +43,7 @@ function SearchBar() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <ul>
-                {results.map((result, index) => (
-                    <li key={index}>{result.name}</li>
-                ))}
-            </ul>
+            </form>
         </div>
     )
 }
