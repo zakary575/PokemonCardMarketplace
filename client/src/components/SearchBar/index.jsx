@@ -11,7 +11,7 @@ function SearchBar() {
 
     function queryAPI(query){
         const apiUrl =  'https://api.pokemontcg.io/v2/cards/?'
-        const url = apiUrl + "&q=name:" + encodeURIComponent(query) + "&pageSize=10"
+        const url = apiUrl + "&q=name:" + encodeURIComponent(query) 
     
         fetch(url)
       .then(response => {
@@ -23,7 +23,7 @@ function SearchBar() {
       .then(results => {
         // Process the retrieved user data
         console.log('Results:', results)
-        setResults(results.data);
+        setResults(results.data.filter(card=>card.cardmarket !== undefined));
       })
       .catch(error => {
         console.error('Error:', error);
