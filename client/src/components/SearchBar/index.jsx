@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './style.css'
 
+
 function SearchBar() {
   const [searchTerm, setSearchTerm] = useState('')
   const [results, setResults] = useState([])
@@ -12,7 +13,7 @@ function SearchBar() {
 
   function queryAPI(query) {
     const apiUrl = 'https://api.pokemontcg.io/v2/cards/?'
-    const url = apiUrl + "&q=name:" + encodeURIComponent(query)
+    const url = apiUrl + "&q=name:" + encodeURIComponent(query) + '*'
 
     fetch(url)
       .then(response => {
