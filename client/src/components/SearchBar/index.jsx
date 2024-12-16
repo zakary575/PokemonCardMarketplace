@@ -45,7 +45,7 @@ function SearchBar() {
         />
         <button className="btn btn-info my-2 my-sm-0" type="submit">Search</button>
       </form>
-      <div className="card-deck">
+      <ul className="card-deck">
         {results.map(card =>
           <li className="card bg-dark" key={card.id}>
             <img className="card-img-top bg-dark" src={card.images.small}></img><br />
@@ -55,7 +55,7 @@ function SearchBar() {
             </div>
           </li>
         )}
-      </div>
+      </ul>
 
     </div>
   )
