@@ -33,7 +33,8 @@ function SearchBar() {
 
   return (
     <div>
-      <form className="form-inline my-2 my-lg-0" onSubmit={handleSubmit}>
+      <form className="form-inline my-2 my-lg-0"
+        onSubmit={handleSubmit}>
         <span>🔎</span>
         <input
           className="form-control mr-sm-2"
@@ -46,13 +47,13 @@ function SearchBar() {
       </form>
       <div className="card-deck">
         {results.map(card =>
-          <div className="card bg-dark">
+          <li className="card bg-dark" key={card.id}>
             <img className="card-img-top bg-dark" src={card.images.small}></img><br />
             <div className="card-body bg-dark">
               <p className="card-title text-light bg-dark">${card.cardmarket.prices.averageSellPrice}</p>
-              <btn className="btn btn-info">Add to Cart</btn>
+              <button className="btn btn-info">Add to Cart</button>
             </div>
-          </div>
+          </li>
         )}
       </div>
 
