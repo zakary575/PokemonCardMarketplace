@@ -7,7 +7,7 @@ import CartItem from '../CartItem';
 import Auth from '../../utils/auth';
 import { useStoreContext } from '../../utils/GlobalState';
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../utils/actions';
-// import './style.css';
+import './style.css';
 
 const stripePromise = loadStripe('pk_test_51QUIFx008X5NkGfJLJaKGzoJf1gEadGwt3uOlWXvLQnU7CnBOltWmEba7fEFxRxPRir5WzX7lGbwkjdPrIuSGhm9004taikSBt');
 
@@ -57,8 +57,8 @@ const Cart = () => {
 
     if (!state.cartOpen) {
         return (
-            <div className="cart-closed" onClick={toggleCart}>
-                <span role="img" aria-label="trash">
+            <div className="cart-closed btn border-info pull-right bg-dark" onClick={toggleCart}>
+                <span role="img" aria-label="trash" className="bg-dark">
                     🛒
                 </span>
             </div>
@@ -67,10 +67,10 @@ const Cart = () => {
 
     return (
         <div className="cart">
-            <div className="close" onClick={toggleCart}>
-                [close]
+            <div className="close btn btn-danger" onClick={toggleCart}>
+                X
             </div>
-            <h2>Shopping Cart</h2>
+            <h4 className="card-title">Shopping Cart</h4>
             {state.cart.length ? (
                 <div>
                     {state.cart.map((item) => (
@@ -88,9 +88,9 @@ const Cart = () => {
                     </div>
                 </div>
             ) : (
-                <h3>
+                <h5 className="card-title">
                     your cart is empty
-                </h3>
+                </h5>
             )}
         </div>
     );
