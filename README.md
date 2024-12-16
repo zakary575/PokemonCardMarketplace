@@ -3,7 +3,7 @@
   
 ## Description
 
-Welcome to the Pokemon Trading Post. This website is designed to 
+Welcome to the Pokemon Trading Post. This website is designed to search Pokemon cards from an API databse. It will generate the average sale price of the Pokemon card and let you add it to your cart. The plans for future development is to get Stripe functional so that we would be able to process payment for the cards.
 
 ## Contents
 
@@ -61,5 +61,4 @@ SOFTWARE.
 ## Questions
 
 Questions about the project should be directed through the following contacts below.
-Link to github profile: [mcellis1](https://github.com/mcellis1)
-Email: [matthewcellis98@gmail.com](mailto:matthewcellis98@gmail.com)
+[MattP74](https://github.com/MattP74), [zakary575](https://github.com/zakary575), and [mcellis1](https://github.com/mcellis1).
