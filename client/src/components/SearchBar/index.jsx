@@ -46,10 +46,10 @@ function SearchBar() {
             </form>
             <ul>
                 {results.map(card=>
-                <li>
+                <li key={card.id}>
                     <p>${card.cardmarket.prices.averageSellPrice}</p>
                     <img src={card.images.small}></img><br/>
-                    <btn>Add to Cart</btn>
+                    <button>Add to Cart</button>
                 </li>)}
             </ul>
 
